@@ -12,7 +12,7 @@ const BuildProjectCard: React.FC<{ project: BuildProject; isActive: boolean }> =
   return (
     <div className={`absolute w-full h-full transition-opacity duration-700 ease-in-out ${isActive ? 'opacity-100' : 'opacity-0'}`}>
       <img src={project.imageUrl} alt={project.name} className="absolute inset-0 w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
       <div className="absolute bottom-0 left-0 p-8 text-white">
         <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mb-2 ${
           project.status === 'Launched' ? 'bg-green-500/20 text-green-300' : 
@@ -36,15 +36,27 @@ const BuildProjectCard: React.FC<{ project: BuildProject; isActive: boolean }> =
 const BuildToHackSection: React.FC<BuildToHackSectionProps> = ({ onApplyClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
+  const [liveRegionText, setLiveRegionText] = useState('');
+
+  const changeSlide = useCallback((newIndex: number) => {
+    if (buildProjects.length === 0) return;
+    setCurrentIndex(newIndex);
+    const newProject = buildProjects[newIndex];
+    if (newProject) {
+        setLiveRegionText(`Showing project ${newIndex + 1}: ${newProject.name}`);
+    }
+  }, []);
 
   const nextSlide = useCallback(() => {
     if (buildProjects.length === 0) return;
-    setCurrentIndex(prevIndex => (prevIndex + 1) % buildProjects.length);
-  }, []);
+    const newIndex = (currentIndex + 1) % buildProjects.length;
+    changeSlide(newIndex);
+  }, [currentIndex, changeSlide]);
   
   const prevSlide = () => {
     if (buildProjects.length === 0) return;
-    setCurrentIndex(prevIndex => (prevIndex - 1 + buildProjects.length) % buildProjects.length);
+    const newIndex = (currentIndex - 1 + buildProjects.length) % buildProjects.length;
+    changeSlide(newIndex);
   };
 
   useEffect(() => {
@@ -58,43 +70,57 @@ const BuildToHackSection: React.FC<BuildToHackSectionProps> = ({ onApplyClick })
     <section id="build-to-hack" className="py-20 sm:py-28 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className={`text-center mb-12 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Build to Hack Program</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-mono text-white tracking-tight">Build to Hack Program</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-400">From idea to impact. Leverage community support, resources, and accountability to build your own product.</p>
         </div>
         
         {buildProjects.length > 0 ? (
-          <div className={`relative h-[600px] w-full max-w-5xl mx-auto rounded-lg overflow-hidden border border-slate-700 glow-shadow ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '200ms' }}>
+          <div 
+            className={`relative h-[600px] w-full max-w-5xl mx-auto rounded-xl overflow-hidden bordered-card glow-shadow ${isVisible ? 'fade-in visible' : 'fade-in'}`} 
+            style={{ transitionDelay: '200ms' }}
+            aria-roledescription="carousel"
+            >
             {buildProjects.map((project, index) => (
-              <BuildProjectCard key={project.id} project={project} isActive={index === currentIndex} />
+              <div
+                key={project.id}
+                role="group"
+                aria-label={`Project ${index + 1} of ${buildProjects.length}`}
+                className="w-full h-full"
+              >
+                <BuildProjectCard project={project} isActive={index === currentIndex} />
+              </div>
             ))}
             
             {buildProjects.length > 1 && (
               <>
-                <button onClick={prevSlide} className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors z-10">
+                <button onClick={prevSlide} className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-400 focus-visible:ring-offset-slate-950" aria-label="Previous project">
                   <ChevronLeftIcon className="w-6 h-6" />
                 </button>
-                <button onClick={nextSlide} className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors z-10">
+                <button onClick={nextSlide} className="absolute top-1/2 right-4 -translate-y-1/2 bg-black/30 text-white p-2 rounded-full hover:bg-black/50 transition-colors z-10 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-400 focus-visible:ring-offset-slate-950" aria-label="Next project">
                   <ChevronRightIcon className="w-6 h-6" />
                 </button>
               </>
             )}
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2 z-10">
-              {buildProjects.map((_, index) => (
-                <button key={index} onClick={() => setCurrentIndex(index)} className={`w-2 h-2 rounded-full ${index === currentIndex ? 'bg-violet-400' : 'bg-slate-600'} transition-colors`}></button>
+              {buildProjects.map((project, index) => (
+                <button key={index} onClick={() => changeSlide(index)} className={`w-2.5 h-2.5 rounded-full ${index === currentIndex ? 'bg-fuchsia-400' : 'bg-slate-600 hover:bg-slate-500'} transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-400 focus-visible:ring-offset-slate-950`} aria-label={`Go to project ${index + 1}: ${project.name}`}></button>
               ))}
+            </div>
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+                {liveRegionText}
             </div>
           </div>
         ) : (
-          <div className={`relative h-[400px] w-full max-w-5xl mx-auto rounded-lg border border-slate-700 flex flex-col items-center justify-center text-center p-8 ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '200ms' }}>
+          <div className={`relative h-[400px] w-full max-w-5xl mx-auto rounded-xl bordered-card flex flex-col items-center justify-center text-center p-8 ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '200ms' }}>
             <h3 className="text-2xl font-bold text-white">No Projects to Showcase Yet</h3>
             <p className="mt-2 max-w-md text-slate-400">Our members are busy building the future. The first cohort of projects from the 'Build to Hack' program will be featured here soon.</p>
           </div>
         )}
 
          <div className="text-center mt-12">
-            <button onClick={onApplyClick} className="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-transparent border-2 border-slate-600 rounded-md overflow-hidden transition-all duration-300 hover:border-violet-400 hover:shadow-[0_0_25px_rgba(192,132,252,0.5)]">
-                <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-slate-700 group-hover:w-full group-hover:h-full"></span>
+            <button onClick={onApplyClick} className="group relative inline-flex items-center justify-center px-8 py-3 text-base font-bold text-white bg-transparent border-2 border-slate-600 rounded-md overflow-hidden transition-all duration-300 hover:border-fuchsia-500 hover:text-fuchsia-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-950">
+                <span className="absolute w-0 h-0 transition-all duration-300 ease-out bg-fuchsia-500/20 group-hover:w-full group-hover:h-full"></span>
                 <span className="relative">Apply to Program</span>
             </button>
         </div>

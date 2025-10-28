@@ -8,42 +8,57 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         theme: {
           extend: {
             fontFamily: {
               sans: ['Inter', 'sans-serif'],
-              mono: ['JetBrains Mono', 'monospace'],
+              mono: ['"Source Code Pro"', 'monospace'],
             },
             colors: {
               slate: {
+                950: '#020617',
                 900: '#0f172a',
                 800: '#1e293b',
                 700: '#334155',
                 600: '#475569',
                 400: '#94a3b8',
+                300: '#cbd5e1',
                 200: '#e2e8f0',
               },
-              violet: {
-                300: '#d8b4fe',
-                400: '#c084fc',
-                500: '#a855f7',
-                600: '#9333ea',
+              fuchsia: {
+                300: '#f0abfc',
+                400: '#e879f9',
+                500: '#d946ef',
+                600: '#c026d3',
+                700: '#a21caf',
+                800: '#86198f',
+                900: '#701a75',
+              },
+              blue: {
+                400: '#60a5fa',
+                500: '#3b82f6',
+                600: '#2563eb',
               }
             },
             animation: {
-              'background-pan': 'background-pan 10s linear infinite',
               'text-glitch': 'text-glitch 1.5s infinite',
               'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
               'confetti-rain': 'confetti-rain 2s ease-out forwards',
+              'orbit-1': 'orbit-1 20s linear infinite',
+              'orbit-2': 'orbit-2 22s linear infinite',
+              'orbit-3': 'orbit-3 18s linear infinite',
+              'orbit-4': 'orbit-4 21s linear infinite',
+              'orbit-5': 'orbit-5 19s linear infinite',
+              'orbit-6': 'orbit-6 23s linear infinite',
+              'move-stars-slow': 'move-stars 200s linear infinite',
+              'move-stars-medium': 'move-stars 150s linear infinite',
+              'move-stars-fast': 'move-stars 100s linear infinite',
+              'subtle-glitch': 'subtle-glitch 6s infinite',
             },
             keyframes: {
-              'background-pan': {
-                '0%': { backgroundPosition: '0% 50%' },
-                '100%': { backgroundPosition: '200% 50%' },
-              },
               'text-glitch': {
                 '0%': { transform: 'translate(0)' },
                 '20%': { transform: 'translate(-3px, 3px)' },
@@ -59,7 +74,49 @@
               'confetti-rain': {
                 '0%': { transform: 'translateY(-100%)', opacity: 1 },
                 '100%': { transform: 'translateY(100vh)', opacity: 0 },
-              }
+              },
+              'orbit-1': {
+                '0%': { transform: 'rotate(0deg) translateX(14rem) rotate(0deg) scale(0.8)' },
+                '100%': { transform: 'rotate(360deg) translateX(14rem) rotate(-360deg) scale(0.8)' },
+              },
+              'orbit-2': {
+                '0%': { transform: 'rotate(60deg) translateX(18rem) rotate(-60deg) scale(1.0)' },
+                '100%': { transform: 'rotate(420deg) translateX(18rem) rotate(-420deg) scale(1.0)' },
+              },
+              'orbit-3': {
+                '0%': { transform: 'rotate(120deg) translateX(22rem) rotate(-120deg) scale(0.7)' },
+                '100%': { transform: 'rotate(-240deg) translateX(22rem) rotate(240deg) scale(0.7)' },
+              },
+              'orbit-4': {
+                '0%': { transform: 'rotate(180deg) translateX(16rem) rotate(-180deg) scale(0.9)' },
+                '100%': { transform: 'rotate(540deg) translateX(16rem) rotate(-540deg) scale(0.9)' },
+              },
+              'orbit-5': {
+                '0%': { transform: 'rotate(240deg) translateX(20rem) rotate(-240deg) scale(1.1)' },
+                '100%': { transform: 'rotate(-120deg) translateX(20rem) rotate(120deg) scale(1.1)' },
+              },
+              'orbit-6': {
+                '0%': { transform: 'rotate(300deg) translateX(17rem) rotate(-300deg) scale(0.85)' },
+                '100%': { transform: 'rotate(660deg) translateX(17rem) rotate(-660deg) scale(0.85)' },
+              },
+              'move-stars': {
+                'from': { transform: 'translateY(0)' },
+                'to': { transform: 'translateY(-2000px)' },
+              },
+              'subtle-glitch': {
+                '0%, 4.8%, 5.4%, 100%': { 
+                  textShadow: 'none', 
+                  transform: 'none' 
+                },
+                '5%': { 
+                  textShadow: '2px 2px 0 #d946ef, -2px -2px 0 #60a5fa', 
+                  transform: 'translate(-2px, 1px)' 
+                },
+                '5.2%': { 
+                  textShadow: '-2px -2px 0 #d946ef, 2px 2px 0 #60a5fa', 
+                  transform: 'translate(2px, -1px)' 
+                },
+              },
             }
           }
         }
@@ -67,41 +124,23 @@
     </script>
     <style>
       body {
-        background-color: #0f172a;
-        color: #94a3b8;
+        background-color: #020617; /* slate-950 */
+        color: #94a3b8; /* slate-400 */
       }
-      .animated-grid {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image:
-          linear-gradient(to right, rgba(51, 65, 85, 0.3) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(51, 65, 85, 0.3) 1px, transparent 1px);
-        background-size: 4rem 4rem;
-        z-index: -1;
-        mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, black, transparent 70%);
+      .bordered-card {
+        background: rgba(15, 23, 42, 0.5); /* slate-900/50 */
+        border: 1px solid #334155; /* slate-700 */
+        transition: border-color 0.3s ease-in-out;
+      }
+      .bordered-card:hover {
+        border-color: #d946ef; /* fuchsia-500 */
       }
       .glow-shadow {
-        box-shadow: 0 0 15px rgba(192, 132, 252, 0), 0 0 20px rgba(192, 132, 252, 0);
+        box-shadow: 0 0 0px rgba(217, 70, 239, 0);
         transition: box-shadow 0.3s ease-in-out;
       }
-      .glow-shadow:hover {
-        box-shadow: 0 0 25px rgba(192, 132, 252, 0.4), 0 0 40px rgba(192, 132, 252, 0.2);
-      }
-      .btn-primary:hover > .btn-shine {
-        animation: background-pan 3s linear infinite;
-      }
-      .btn-shine {
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(192, 132, 252, 0.5),
-          transparent
-        );
-        background-size: 200% 100%;
-        background-position: 200% 0;
+      .glow-shadow:hover, .glow-shadow:focus-within {
+        box-shadow: 0 0 20px rgba(217, 70, 239, 0.2), 0 0 35px rgba(217, 70, 239, 0.1);
       }
       .fade-in {
         opacity: 0;
@@ -111,6 +150,46 @@
       .fade-in.visible {
         opacity: 1;
         transform: translateY(0);
+      }
+      .btn-gradient {
+        background-image: linear-gradient(to right, #d946ef 0%, #3b82f6 51%, #d946ef 100%);
+        transition: all 0.3s ease;
+        background-size: 200% auto;
+      }
+      .btn-gradient:hover {
+        background-position: right center;
+        box-shadow: 0 10px 20px -10px rgba(217, 70, 239, 0.4);
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+      .hero-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 0;
+      }
+      .stars-sm {
+        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
+        background-size: 50px 50px;
+      }
+      .stars-md {
+        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
+        background-size: 100px 100px;
+      }
+      .stars-lg {
+        background-image: radial-gradient(circle at center, white 1.5px, transparent 1.5px);
+        background-size: 150px 150px;
       }
     </style>
   <script type="importmap">

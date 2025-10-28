@@ -36,11 +36,11 @@ const MetricCard: React.FC<{ metric: CommunityMetric; index: number }> = ({ metr
   return (
     <div
       ref={ref}
-      className={`bg-slate-800/50 border border-slate-700 rounded-lg p-6 text-center transition-all duration-300 glow-shadow ${isVisible ? 'fade-in visible' : 'fade-in'}`}
+      className={`bordered-card rounded-xl p-6 text-center transition-all duration-300 ${isVisible ? 'fade-in visible' : 'fade-in'}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <p className="text-slate-400 text-sm font-medium">{metric.label}</p>
-      <p className="text-5xl font-bold font-mono text-violet-400 my-2">
+      <p className="text-5xl font-bold text-fuchsia-400 my-2">
         {isVisible && <AnimatedCounter value={metric.value} />}
         {metric.unit && <span className="text-4xl">{metric.unit}</span>}
       </p>
@@ -52,10 +52,10 @@ const CommunityMetricsSection: React.FC = () => {
     const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
 
     return (
-    <section id="metrics" className="py-20 sm:py-28 bg-slate-900/70">
+    <section id="metrics" className="py-20 sm:py-28 bg-slate-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className={`text-center mb-12 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
-          <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Community Velocity</h2>
+          <h2 className="text-4xl md:text-5xl font-bold font-mono text-white tracking-tight">Community Velocity</h2>
           <p className="mt-4 max-w-2xl mx-auto text-lg text-slate-400">Abstract technical visualizations of our collective momentum and growth.</p>
         </div>
         {communityMetrics.length > 0 ? (
@@ -65,7 +65,7 @@ const CommunityMetricsSection: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center bg-slate-800/50 border border-slate-700 rounded-lg p-12">
+          <div className="text-center bordered-card rounded-xl p-12">
             <h3 className="text-xl font-bold text-white">Metrics Coming Soon</h3>
             <p className="mt-2 text-slate-400">We are gathering data to showcase our community's growth. Check back later.</p>
           </div>

@@ -14,6 +14,7 @@ export enum ExperienceLevel {
 export interface ApplicationFormData {
   name: string;
   email: string;
+  phone: string;
   skill: Skill | '';
   experience: ExperienceLevel | '';
   portfolioUrl: string;
@@ -31,7 +32,7 @@ export interface MeetupEvent {
 }
 
 export interface HackathonProject {
-  id: string;
+  id:string;
   name: string;
   team: string[];
   description: string;
@@ -72,4 +73,12 @@ export interface CommunityMetric {
   value: number;
   unit?: string;
   trend: 'up' | 'down' | 'stable';
+}
+
+export interface SearchResult {
+  id: string;
+  title: string;
+  category: 'Meetup' | 'Hackathon' | 'Project';
+  url: string;
+  context: string;
 }
