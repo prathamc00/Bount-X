@@ -165,15 +165,15 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
   const progressPercentage = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in-up duration-500">
+    <div className="fixed inset-0 bg-slate-100/80 dark:bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-fade-in-up duration-500">
       <div 
         ref={modalRef}
-        className="bordered-card rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col relative overflow-hidden bg-slate-900"
+        className="border border-slate-200 dark:border-slate-700 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col relative overflow-hidden bg-white dark:bg-slate-900"
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        <button onClick={handleClose} className="absolute top-4 right-4 text-slate-400 hover:text-fuchsia-400 transition-colors z-20 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400">
+        <button onClick={handleClose} className="absolute top-4 right-4 text-slate-500 dark:text-slate-400 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors z-20 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500">
           <span className="sr-only">Close application form</span>
           <XIcon className="h-6 w-6" />
         </button>
@@ -181,18 +181,18 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
         {isSubmitted ? (
           <div className="flex flex-col items-center justify-center text-center p-8 sm:p-12 h-full relative overflow-hidden">
               {[...Array(30)].map((_, i) => (
-                  <div key={i} aria-hidden="true" className="absolute top-0 h-2 bg-fuchsia-400 animate-confetti-rain" style={{ left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 2}s`, width: `${Math.random() * 6 + 4}px` }}/>
+                  <div key={i} aria-hidden="true" className="absolute top-0 h-2 bg-fuchsia-500 animate-confetti-rain" style={{ left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 2}s`, width: `${Math.random() * 6 + 4}px` }}/>
               ))}
-            <h2 className="text-3xl font-bold text-white mb-4">Application Received!</h2>
-            <p className="text-slate-300 mb-6">Redirecting you to your application status page...</p>
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Application Received!</h2>
+            <p className="text-slate-600 dark:text-slate-300 mb-6">Redirecting you to your application status page...</p>
           </div>
         ) : (
           <>
-            <div className="p-6 border-b border-slate-800">
-              <h2 id="modal-title" className="text-2xl font-bold font-mono text-white">Join Bount-X</h2>
-              <p className="text-sm text-slate-400">Step {currentStep + 1} of {steps.length}: {steps[currentStep]}</p>
+            <div className="p-6 border-b border-slate-200 dark:border-slate-800">
+              <h2 id="modal-title" className="text-2xl font-bold font-mono text-slate-900 dark:text-white">Join Bount-X</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Step {currentStep + 1} of {steps.length}: {steps[currentStep]}</p>
               <div 
-                className="w-full bg-slate-700 rounded-full h-1.5 mt-3"
+                className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1.5 mt-3"
                 role="progressbar"
                 aria-valuenow={progressPercentage}
                 aria-valuemin={0}
@@ -206,42 +206,42 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
             <form onSubmit={handleSubmit} className="p-6 overflow-y-auto flex-grow">
               <div style={{ display: currentStep === 0 ? 'block' : 'none' }}>
                 <div className="mb-4">
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-1">Name</label>
-                  <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'name-error' : undefined} className={`w-full bg-slate-800 border ${errors.name ? 'border-red-500' : 'border-slate-600'} text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
+                  <label htmlFor="name" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Name</label>
+                  <input type="text" name="name" id="name" value={formData.name} onChange={handleChange} aria-invalid={!!errors.name} aria-describedby={errors.name ? 'name-error' : undefined} className={`w-full bg-slate-100 dark:bg-slate-800 border ${errors.name ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} text-slate-900 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
                   {errors.name && <p id="name-error" className="text-red-500 text-xs mt-1">{errors.name}</p>}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1">Email</label>
-                  <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-error' : undefined} className={`w-full bg-slate-800 border ${errors.email ? 'border-red-500' : 'border-slate-600'} text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
+                  <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email</label>
+                  <input type="email" name="email" id="email" value={formData.email} onChange={handleChange} aria-invalid={!!errors.email} aria-describedby={errors.email ? 'email-error' : undefined} className={`w-full bg-slate-100 dark:bg-slate-800 border ${errors.email ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} text-slate-900 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
                   {errors.email && <p id="email-error" className="text-red-500 text-xs mt-1">{errors.email}</p>}
                 </div>
                  <div className="mb-4">
-                  <label htmlFor="phone" className="block text-sm font-medium text-slate-300 mb-1">Phone Number</label>
-                  <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} placeholder="+91" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'phone-error' : undefined} className={`w-full bg-slate-800 border ${errors.phone ? 'border-red-500' : 'border-slate-600'} text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
+                  <label htmlFor="phone" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+                  <input type="tel" name="phone" id="phone" value={formData.phone} onChange={handleChange} placeholder="+91" aria-invalid={!!errors.phone} aria-describedby={errors.phone ? 'phone-error' : undefined} className={`w-full bg-slate-100 dark:bg-slate-800 border ${errors.phone ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} text-slate-900 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
                   {errors.phone && <p id="phone-error" className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                 </div>
               </div>
 
               <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
                 <div className="mb-4">
-                  <label id="skill-label" className="block text-sm font-medium text-slate-300 mb-2">Primary Skill</label>
+                  <label id="skill-label" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Primary Skill</label>
                   <div role="radiogroup" aria-labelledby="skill-label" className="grid grid-cols-3 gap-2">
                     {[Skill.HACKER, Skill.DESIGNER, Skill.DEVELOPER].map(skill => (
-                      <button type="button" key={skill} role="radio" aria-checked={formData.skill === skill} onClick={() => handleSelectChange('skill', skill)} className={`flex flex-col items-center p-3 border-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 ${formData.skill === skill ? 'border-fuchsia-500 bg-fuchsia-500/10' : 'border-slate-600 hover:border-fuchsia-500/50'}`}>
-                        {skill === Skill.HACKER && <HackerIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-400' : 'text-slate-400'}`} />}
-                        {skill === Skill.DESIGNER && <DesignIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-400' : 'text-slate-400'}`} />}
-                        {skill === Skill.DEVELOPER && <CodeIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-400' : 'text-slate-400'}`} />}
-                        <span className={`text-xs font-semibold ${formData.skill === skill ? 'text-white' : 'text-slate-300'}`}>{skill}</span>
+                      <button type="button" key={skill} role="radio" aria-checked={formData.skill === skill} onClick={() => handleSelectChange('skill', skill)} className={`flex flex-col items-center p-3 border-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 ${formData.skill === skill ? 'border-fuchsia-500 bg-fuchsia-500/10' : 'border-slate-300 dark:border-slate-600 hover:border-fuchsia-500/50'}`}>
+                        {skill === Skill.HACKER && <HackerIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-600 dark:text-fuchsia-400' : 'text-slate-500 dark:text-slate-400'}`} />}
+                        {skill === Skill.DESIGNER && <DesignIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-600 dark:text-fuchsia-400' : 'text-slate-500 dark:text-slate-400'}`} />}
+                        {skill === Skill.DEVELOPER && <CodeIcon className={`w-6 h-6 mb-1 ${formData.skill === skill ? 'text-fuchsia-600 dark:text-fuchsia-400' : 'text-slate-500 dark:text-slate-400'}`} />}
+                        <span className={`text-xs font-semibold ${formData.skill === skill ? 'text-slate-900 dark:text-white' : 'text-slate-700 dark:text-slate-300'}`}>{skill}</span>
                       </button>
                     ))}
                   </div>
                    {errors.skill && <p className="text-red-500 text-xs mt-1">{errors.skill}</p>}
                 </div>
                  <div className="mb-4">
-                  <label id="experience-label" className="block text-sm font-medium text-slate-300 mb-2">Experience Level</label>
+                  <label id="experience-label" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Experience Level</label>
                   <div role="radiogroup" aria-labelledby="experience-label" className="grid grid-cols-3 gap-2">
                      {[ExperienceLevel.JUNIOR, ExperienceLevel.MID, ExperienceLevel.SENIOR].map(level => (
-                        <button type="button" key={level} role="radio" aria-checked={formData.experience === level} onClick={() => handleSelectChange('experience', level)} className={`p-3 border-2 rounded-lg transition-colors text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 ${formData.experience === level ? 'border-fuchsia-500 bg-fuchsia-500/10 text-white' : 'border-slate-600 hover:border-fuchsia-500/50 text-slate-300'}`}>
+                        <button type="button" key={level} role="radio" aria-checked={formData.experience === level} onClick={() => handleSelectChange('experience', level)} className={`p-3 border-2 rounded-lg transition-colors text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 ${formData.experience === level ? 'border-fuchsia-500 bg-fuchsia-500/10 text-slate-900 dark:text-white' : 'border-slate-300 dark:border-slate-600 hover:border-fuchsia-500/50 text-slate-700 dark:text-slate-300'}`}>
                           {level}
                         </button>
                       ))}
@@ -249,27 +249,27 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
                    {errors.experience && <p className="text-red-500 text-xs mt-1">{errors.experience}</p>}
                 </div>
                 <div className="mb-4">
-                  <label htmlFor="portfolioUrl" className="block text-sm font-medium text-slate-300 mb-1">Portfolio/GitHub URL</label>
-                  <input type="url" name="portfolioUrl" id="portfolioUrl" value={formData.portfolioUrl} onChange={handleChange} aria-invalid={!!errors.portfolioUrl} aria-describedby={errors.portfolioUrl ? 'portfolio-error' : undefined} className={`w-full bg-slate-800 border ${errors.portfolioUrl ? 'border-red-500' : 'border-slate-600'} text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
+                  <label htmlFor="portfolioUrl" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Portfolio/GitHub URL</label>
+                  <input type="url" name="portfolioUrl" id="portfolioUrl" value={formData.portfolioUrl} onChange={handleChange} aria-invalid={!!errors.portfolioUrl} aria-describedby={errors.portfolioUrl ? 'portfolio-error' : undefined} className={`w-full bg-slate-100 dark:bg-slate-800 border ${errors.portfolioUrl ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} text-slate-900 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`} />
                   {errors.portfolioUrl && <p id="portfolio-error" className="text-red-500 text-xs mt-1">{errors.portfolioUrl}</p>}
                 </div>
               </div>
 
               <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
                  <div className="mb-4">
-                  <label htmlFor="reason" className="block text-sm font-medium text-slate-300 mb-1">Why do you want to join Bount-X?</label>
-                  <textarea name="reason" id="reason" rows={5} value={formData.reason} onChange={handleChange} aria-invalid={!!errors.reason} aria-describedby={errors.reason ? 'reason-error' : undefined} className={`w-full bg-slate-800 border ${errors.reason ? 'border-red-500' : 'border-slate-600'} text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`}></textarea>
-                  <p id="reason-error" className={`text-xs mt-1 ${formData.reason.length < 100 && errors.reason ? 'text-red-500' : 'text-slate-400'}`}>{errors.reason ? errors.reason : `${formData.reason.length}/100 characters`}</p>
+                  <label htmlFor="reason" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Why do you want to join Bount-X?</label>
+                  <textarea name="reason" id="reason" rows={5} value={formData.reason} onChange={handleChange} aria-invalid={!!errors.reason} aria-describedby={errors.reason ? 'reason-error' : undefined} className={`w-full bg-slate-100 dark:bg-slate-800 border ${errors.reason ? 'border-red-500' : 'border-slate-300 dark:border-slate-600'} text-slate-900 dark:text-white rounded-lg px-3 py-2 focus:ring-2 focus:ring-fuchsia-500 focus:border-fuchsia-500 outline-none transition-colors`}></textarea>
+                  <p id="reason-error" className={`text-xs mt-1 ${formData.reason.length < 100 && errors.reason ? 'text-red-500' : 'text-slate-500 dark:text-slate-400'}`}>{errors.reason ? errors.reason : `${formData.reason.length}/100 characters`}</p>
                 </div>
               </div>
             </form>
 
-            <div className="p-6 border-t border-slate-800 flex justify-between items-center bg-slate-900/50">
-              <button type="button" onClick={handleBack} disabled={currentStep === 0} className="px-4 py-2 bg-slate-600 text-white font-semibold rounded-lg hover:bg-slate-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-800">Back</button>
+            <div className="p-6 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50 dark:bg-slate-900/50">
+              <button type="button" onClick={handleBack} disabled={currentStep === 0} className="px-4 py-2 bg-slate-200 dark:bg-slate-600 text-slate-800 dark:text-white font-semibold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-800">Back</button>
               {currentStep < steps.length - 1 ? (
-                <button type="button" onClick={handleNext} className="px-6 py-2.5 text-white font-semibold rounded-lg btn-gradient transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-800">Next</button>
+                <button type="button" onClick={handleNext} className="px-6 py-2.5 text-white font-semibold rounded-lg btn-gradient transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-800">Next</button>
               ) : (
-                <button type="submit" onClick={handleSubmit} className="px-6 py-2.5 text-white font-semibold rounded-lg btn-gradient transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-800">Submit Application</button>
+                <button type="submit" onClick={handleSubmit} className="px-6 py-2.5 text-white font-semibold rounded-lg btn-gradient transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-800">Submit Application</button>
               )}
             </div>
           </>

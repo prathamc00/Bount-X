@@ -1,4 +1,5 @@
 
+
 export enum Skill {
   HACKER = 'Hacker',
   DESIGNER = 'Designer',
@@ -19,6 +20,18 @@ export interface ApplicationFormData {
   experience: ExperienceLevel | '';
   portfolioUrl: string;
   reason: string;
+}
+
+export enum ApplicationStatus {
+  PENDING = 'Pending',
+  APPROVED = 'Approved',
+  REJECTED = 'Rejected',
+}
+
+export interface Application extends ApplicationFormData {
+  id: string;
+  status: ApplicationStatus;
+  submittedAt: string;
 }
 
 export interface MeetupEvent {

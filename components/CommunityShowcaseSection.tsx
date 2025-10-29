@@ -13,28 +13,21 @@ const CommunityShowcaseSection: React.FC = () => {
     ];
 
     return (
-        <section ref={ref} className="relative py-20 sm:py-28 overflow-hidden bg-slate-950">
-            {/* Starfield Background */}
-            <div className="absolute inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-[3000px] opacity-30 stars-sm animate-move-stars-slow" />
-                <div className="absolute top-0 left-0 w-full h-[3000px] opacity-50 stars-md animate-move-stars-medium" />
-                <div className="absolute top-0 left-0 w-full h-[3000px] opacity-70 stars-lg animate-move-stars-fast" />
-            </div>
-
+        <section ref={ref} className="relative py-20 sm:py-28 overflow-hidden">
             <div className="absolute inset-0 z-0 flex items-center justify-center">
-                <div className="absolute w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_rgba(217,70,239,0.15),_rgba(217,70,239,0)_60%)]"></div>
+                <div className="absolute w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_rgba(217,70,239,0.1),_rgba(217,70,239,0)_60%)] dark:bg-[radial-gradient(circle_at_center,_rgba(217,70,239,0.15),_rgba(217,70,239,0)_60%)]"></div>
             </div>
 
             <div className={`container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-all duration-700 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
                 <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center min-h-[300px]">
                     
                     <div className="relative z-10">
-                        <h2 className="text-4xl md:text-5xl font-bold font-mono text-white tracking-tight animate-subtle-glitch">
+                        <h2 className="text-4xl md:text-5xl font-bold font-mono text-slate-900 dark:text-white tracking-tight animate-subtle-glitch">
                             A Network of{' '}
                             <div className="relative inline-block">
                                 <button 
                                     onClick={() => setShowOptions(!showOptions)} 
-                                    className="text-fuchsia-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-400 rounded-md px-1"
+                                    className="text-fuchsia-600 dark:text-fuchsia-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 rounded-md px-1"
                                     aria-expanded={showOptions}
                                     aria-controls="innovators-options"
                                 >
@@ -43,7 +36,7 @@ const CommunityShowcaseSection: React.FC = () => {
                                 {showOptions && (
                                     <div 
                                         id="innovators-options"
-                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-slate-900 border border-slate-700 rounded-lg shadow-lg p-2 z-20 animate-fade-in-up"
+                                        className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-64 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-lg shadow-lg p-2 z-20 animate-fade-in-up"
                                         style={{ animationDuration: '0.3s' }}
                                     >
                                         <ul className="space-y-1">
@@ -52,7 +45,7 @@ const CommunityShowcaseSection: React.FC = () => {
                                                     <a 
                                                         href={option.href}
                                                         onClick={() => setShowOptions(false)}
-                                                        className="flex justify-between items-center w-full px-4 py-2 text-left text-slate-300 hover:bg-slate-800 hover:text-fuchsia-400 rounded-md transition-colors"
+                                                        className="flex justify-between items-center w-full px-4 py-2 text-left text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 rounded-md transition-colors"
                                                     >
                                                         <span>{option.label}</span>
                                                         <ArrowRightIcon className="w-4 h-4" />
@@ -64,7 +57,7 @@ const CommunityShowcaseSection: React.FC = () => {
                                 )}
                             </div>
                         </h2>
-                        <p className="mt-4 max-w-xl mx-auto text-lg text-slate-400">
+                        <p className="mt-4 max-w-xl mx-auto text-lg text-slate-600 dark:text-slate-400">
                            United by a passion for technology, our members are the architects of tomorrow.
                         </p>
                     </div>

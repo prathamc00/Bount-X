@@ -10,7 +10,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
     <script>
+      // Prevents "flash of incorrect theme"
+      (function() {
+        const theme = localStorage.getItem('bountx_theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      })();
+    </script>
+    <script>
       tailwind.config = {
+        darkMode: 'class', // Enable class-based dark mode
         theme: {
           extend: {
             fontFamily: {
@@ -24,9 +37,12 @@
                 800: '#1e293b',
                 700: '#334155',
                 600: '#475569',
+                500: '#64748b',
                 400: '#94a3b8',
                 300: '#cbd5e1',
                 200: '#e2e8f0',
+                100: '#f1f5f9',
+                50: '#f8fafc',
               },
               fuchsia: {
                 300: '#f0abfc',
@@ -46,6 +62,7 @@
             animation: {
               'text-glitch': 'text-glitch 1.5s infinite',
               'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+              'fade-in-slow': 'fade-in-slow 1.5s ease-out forwards',
               'confetti-rain': 'confetti-rain 2s ease-out forwards',
               'orbit-1': 'orbit-1 20s linear infinite',
               'orbit-2': 'orbit-2 22s linear infinite',
@@ -57,8 +74,15 @@
               'move-stars-medium': 'move-stars 150s linear infinite',
               'move-stars-fast': 'move-stars 100s linear infinite',
               'subtle-glitch': 'subtle-glitch 6s infinite',
+              'wave-1': 'wave 25s ease-in-out infinite',
+              'wave-2': 'wave 30s ease-in-out infinite',
+              'wave-3': 'wave 35s ease-in-out infinite',
             },
             keyframes: {
+              'wave': {
+                '0%, 100%': { transform: 'translateX(0)' },
+                '50%': { transform: 'translateX(-25%)' },
+              },
               'text-glitch': {
                 '0%': { transform: 'translate(0)' },
                 '20%': { transform: 'translate(-3px, 3px)' },
@@ -70,6 +94,10 @@
               'fade-in-up': {
                 '0%': { opacity: '0', transform: 'translateY(20px)' },
                 '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+               'fade-in-slow': {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
               },
               'confetti-rain': {
                 '0%': { transform: 'translateY(-100%)', opacity: 1 },
@@ -101,7 +129,7 @@
               },
               'move-stars': {
                 'from': { transform: 'translateY(0)' },
-                'to': { transform: 'translateY(-2000px)' },
+                'to': { transform: 'translateY(-4000px)' },
               },
               'subtle-glitch': {
                 '0%, 4.8%, 5.4%, 100%': { 
@@ -123,24 +151,55 @@
       }
     </script>
     <style>
-      body {
-        background-color: #020617; /* slate-950 */
-        color: #94a3b8; /* slate-400 */
+      .hero-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(circle at center, rgba(148, 163, 184, 0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 0;
       }
-      .bordered-card {
-        background: rgba(15, 23, 42, 0.5); /* slate-900/50 */
-        border: 1px solid #334155; /* slate-700 */
-        transition: border-color 0.3s ease-in-out;
+      .dark .hero-bg::before {
+        background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
       }
-      .bordered-card:hover {
-        border-color: #d946ef; /* fuchsia-500 */
+      .stars-sm {
+        background-image: radial-gradient(circle at center, #0f172a 1px, transparent 1px); /* slate-900 */
+        background-size: 50px 50px;
       }
-      .glow-shadow {
-        box-shadow: 0 0 0px rgba(217, 70, 239, 0);
-        transition: box-shadow 0.3s ease-in-out;
+      .dark .stars-sm {
+         background-image: radial-gradient(circle at center, white 1px, transparent 1px);
       }
-      .glow-shadow:hover, .glow-shadow:focus-within {
-        box-shadow: 0 0 20px rgba(217, 70, 239, 0.2), 0 0 35px rgba(217, 70, 239, 0.1);
+      .stars-md {
+        background-image: radial-gradient(circle at center, #0f172a 1px, transparent 1px); /* slate-900 */
+        background-size: 100px 100px;
+      }
+      .dark .stars-md {
+        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
+      }
+      .stars-lg {
+        background-image: radial-gradient(circle at center, #1e293b 1.5px, transparent 1.5px); /* slate-800 */
+        background-size: 150px 150px;
+      }
+      .dark .stars-lg {
+        background-image: radial-gradient(circle at center, white 1.5px, transparent 1.5px);
+      }
+      .hero-text-animation strong {
+        color: #c026d3; /* fuchsia-600 */
+        font-weight: 600;
+      }
+      .dark .hero-text-animation strong {
+        color: #e879f9; /* fuchsia-400 */
+      }
+      .typed-cursor {
+        color: #c026d3; /* fuchsia-600 */
+        opacity: 1;
+        animation: typed-blink 0.7s infinite;
+      }
+      .dark .typed-cursor {
+        color: #e879f9; /* fuchsia-400 */
+      }
+      @keyframes typed-blink {
+        50% { opacity: 0.0; }
       }
       .fade-in {
         opacity: 0;
@@ -160,37 +219,6 @@
         background-position: right center;
         box-shadow: 0 10px 20px -10px rgba(217, 70, 239, 0.4);
       }
-      .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border-width: 0;
-      }
-      .hero-bg::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: 0;
-      }
-      .stars-sm {
-        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
-        background-size: 50px 50px;
-      }
-      .stars-md {
-        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
-        background-size: 100px 100px;
-      }
-      .stars-lg {
-        background-image: radial-gradient(circle at center, white 1.5px, transparent 1.5px);
-        background-size: 150px 150px;
-      }
     </style>
   <script type="importmap">
 {
@@ -205,6 +233,8 @@
 </head>
   <body>
     <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>
