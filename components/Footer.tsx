@@ -9,9 +9,6 @@ const Footer: React.FC = () => {
              <h1 className="text-xl font-bold font-mono text-slate-900 dark:text-white">Bount-X</h1>
              <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">&copy; {new Date().getFullYear()} All rights reserved.</p>
           </div>
-          <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-            Backed By: <span className="text-fuchsia-600 dark:text-fuchsia-400 font-bold">Zetpeak</span>
-          </div>
         </div>
       </div>
     </footer>

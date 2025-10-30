@@ -57,7 +57,19 @@
                 400: '#60a5fa',
                 500: '#3b82f6',
                 600: '#2563eb',
-              }
+              },
+              neutral: {
+                50: '#f9f9f9',  
+                100: '#f0f0f0', 
+                200: '#e5e5e5', 
+                300: '#d4d4d4',
+                400: '#a3a3a3',
+                500: '#737373',
+                600: '#525252',
+                700: '#404040', 
+                800: '#262626', 
+                900: '#171717',
+              },
             },
             animation: {
               'text-glitch': 'text-glitch 1.5s infinite',
@@ -70,12 +82,10 @@
               'orbit-4': 'orbit-4 21s linear infinite',
               'orbit-5': 'orbit-5 19s linear infinite',
               'orbit-6': 'orbit-6 23s linear infinite',
-              'move-stars-slow': 'move-stars 200s linear infinite',
-              'move-stars-medium': 'move-stars 150s linear infinite',
-              'move-stars-fast': 'move-stars 100s linear infinite',
               'subtle-glitch': 'subtle-glitch 6s infinite',
               'progress-ring': 'progress-ring 1s ease-out forwards',
               'logo-spin': 'logo-spin 15s linear infinite',
+              'move-grid': 'move-grid 60s linear infinite',
             },
             keyframes: {
               'progress-ring': {
@@ -129,10 +139,6 @@
                 '0%': { transform: 'rotate(300deg) translateX(17rem) rotate(-300deg) scale(0.85)' },
                 '100%': { transform: 'rotate(660deg) translateX(17rem) rotate(-660deg) scale(0.85)' },
               },
-              'move-stars': {
-                'from': { transform: 'translateY(0)' },
-                'to': { transform: 'translateY(-4000px)' },
-              },
               'subtle-glitch': {
                 '0%, 4.8%, 5.4%, 100%': { 
                   textShadow: 'none', 
@@ -147,33 +153,16 @@
                   transform: 'translate(2px, -1px)' 
                 },
               },
+              'move-grid': {
+                '0%': { backgroundPosition: '0 0' },
+                '100%': { backgroundPosition: '-1000px 1000px' },
+              },
             }
           }
         }
       }
     </script>
     <style>
-      .stars-sm {
-        background-image: radial-gradient(circle at center, #0f172a 1px, transparent 1px); /* slate-900 */
-        background-size: 50px 50px;
-      }
-      .dark .stars-sm {
-         background-image: radial-gradient(circle at center, white 1px, transparent 1px);
-      }
-      .stars-md {
-        background-image: radial-gradient(circle at center, #0f172a 1px, transparent 1px); /* slate-900 */
-        background-size: 100px 100px;
-      }
-      .dark .stars-md {
-        background-image: radial-gradient(circle at center, white 1px, transparent 1px);
-      }
-      .stars-lg {
-        background-image: radial-gradient(circle at center, #1e293b 1.5px, transparent 1.5px); /* slate-800 */
-        background-size: 150px 150px;
-      }
-      .dark .stars-lg {
-        background-image: radial-gradient(circle at center, white 1.5px, transparent 1.5px);
-      }
       .hero-text-animation strong {
         color: #c026d3; /* fuchsia-600 */
         font-weight: 600;
@@ -209,6 +198,21 @@
       .btn-gradient:hover {
         background-position: right center;
         box-shadow: 0 10px 20px -10px rgba(217, 70, 239, 0.4);
+      }
+      .grid-background {
+        background-image: radial-gradient(circle at center, rgba(100, 116, 139, 0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
+      }
+      .dark .grid-background {
+        background-image: radial-gradient(circle at center, rgba(203, 213, 225, 0.15) 1px, transparent 1px);
+      }
+      /* Added for smooth theme transitions */
+      .theme-in-transition *,
+      .theme-in-transition *::before,
+      .theme-in-transition *::after {
+        transition-property: background-color, border-color, color, fill, stroke;
+        transition-duration: 300ms;
+        transition-timing-function: ease-in-out;
       }
     </style>
   <script type="importmap">

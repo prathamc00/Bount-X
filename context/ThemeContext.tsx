@@ -28,10 +28,18 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   }, []);
 
   const toggleTheme = () => {
+    const root = window.document.documentElement;
     const newTheme = theme === 'light' ? 'dark' : 'light';
+    
+    root.classList.add('theme-in-transition');
+
     setTheme(newTheme);
     localStorage.setItem('bountx_theme', newTheme);
-    window.document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    root.classList.toggle('dark', newTheme === 'dark');
+    
+    setTimeout(() => {
+        root.classList.remove('theme-in-transition');
+    }, 300);
   };
 
   return (

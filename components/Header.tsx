@@ -20,15 +20,20 @@ const ThemeToggleButton: React.FC = () => {
 
     useEffect(() => setMounted(true), []);
 
-    if (!mounted) return null;
+    if (!mounted) {
+        // Render a placeholder to prevent layout shift
+        return <div className="hidden md:inline-flex h-10 w-10" />;
+    }
 
     return (
         <button
             onClick={toggleTheme}
-            className="hidden md:inline-flex items-center justify-center h-10 w-10 text-slate-500 dark:text-slate-400 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950"
+            className="hidden md:inline-flex items-center justify-center h-10 w-10 text-slate-500 dark:text-slate-400 hover:text-fuchsia-600 dark:hover:text-fuchsia-400 transition-colors rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-fuchsia-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950 relative overflow-hidden"
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
         >
-            {theme === 'dark' ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+            <span className="sr-only">Toggle theme</span>
+            <SunIcon className={`w-5 h-5 absolute transition-all duration-300 ${theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'}`} />
+            <MoonIcon className={`w-5 h-5 absolute transition-all duration-300 ${theme === 'dark' ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`} />
         </button>
     );
 };
@@ -134,8 +139,13 @@ const Header: React.FC<HeaderProps> = ({ onApplyClick }) => {
               ))}
                <div className="border-t border-slate-200 dark:border-slate-800 pt-4 mt-4 flex justify-between items-center">
                     <span className="text-sm font-medium text-slate-700 dark:text-slate-200">Switch Theme</span>
-                    <button onClick={toggleTheme} className="p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
-                        {theme === 'dark' ? <SunIcon className="w-5 h-5" /> : <MoonIcon className="w-5 h-5" />}
+                    <button 
+                      onClick={toggleTheme} 
+                      className="relative overflow-hidden p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 w-9 h-9"
+                      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+                    >
+                       <SunIcon className={`w-5 h-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${theme === 'dark' ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-50'}`} />
+                       <MoonIcon className={`w-5 h-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ${theme === 'dark' ? 'opacity-0 rotate-90 scale-50' : 'opacity-100 rotate-0 scale-100'}`} />
                     </button>
                 </div>
               <button

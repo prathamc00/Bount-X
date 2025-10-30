@@ -5,14 +5,17 @@ import CommunityShowcaseSection from './components/CommunityShowcaseSection';
 import MeetupsSection from './components/MeetupsSection';
 import HackathonsSection from './components/HackathonsSection';
 import BuildToHackSection from './components/BuildToHackSection';
-import CommunityMetricsSection from './components/CommunityMetricsSection';
 import Footer from './components/Footer';
 import { ApplicationFormData } from './types';
 import { CodeIcon, DesignIcon, HackerIcon } from './components/Icons';
+import WhatWeDoSection from './components/WhatWeDoSection';
+import JoinTheCollectiveSection from './components/JoinTheCollectiveSection';
+import GetInvolvedSection from './components/GetInvolvedSection';
 
 const ApplicationModal = lazy(() => import('./components/ApplicationModal'));
 const LandingPage = lazy(() => import('./components/LandingPage'));
 const AdminDashboard = lazy(() => import('./components/admin/AdminDashboard'));
+const ConstellationBackground = lazy(() => import('./components/ConstellationBackground'));
 
 
 // Sub-component for Application Status Page
@@ -159,11 +162,12 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-slate-50 dark:bg-slate-950 text-slate-600 dark:text-slate-400 font-sans relative overflow-x-hidden animate-fade-in-slow">
-      {/* Global Starfield Background */}
+      {/* Global Background Elements */}
+      <Suspense fallback={null}>
+        <ConstellationBackground />
+      </Suspense>
       <div className="absolute inset-0 z-0 pointer-events-none">
-          <div className="absolute top-0 left-0 w-full h-[6000px] opacity-70 dark:opacity-30 stars-sm animate-move-stars-slow" />
-          <div className="absolute top-0 left-0 w-full h-[6000px] opacity-50 dark:opacity-50 stars-md animate-move-stars-medium" />
-          <div className="absolute top-0 left-0 w-full h-[6000px] opacity-30 dark:opacity-70 stars-lg animate-move-stars-fast" />
+          <div className="absolute inset-0 grid-background animate-move-grid" />
       </div>
 
       <Header onApplyClick={handleOpenModal} />
@@ -171,10 +175,12 @@ const App: React.FC = () => {
       <main className="relative z-10">
         <HeroSection onApplyClick={handleOpenModal} />
         <CommunityShowcaseSection />
+        <WhatWeDoSection />
         <MeetupsSection />
         <HackathonsSection />
         <BuildToHackSection onApplyClick={handleOpenModal} />
-        <CommunityMetricsSection />
+        <JoinTheCollectiveSection />
+        <GetInvolvedSection />
       </main>
 
       <Footer />
