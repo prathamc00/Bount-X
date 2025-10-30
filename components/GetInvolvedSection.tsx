@@ -36,7 +36,7 @@ const GetInvolvedSection: React.FC = () => {
           {actions.map((action, index) => (
              <div 
               key={index} 
-              className={`bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl p-8 flex flex-col transition-all duration-300 hover:shadow-lg hover:-translate-y-1 ${isVisible ? 'fade-in visible' : 'fade-in'}`} 
+              className={`bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-fuchsia-500/10 dark:hover:shadow-fuchsia-400/10 hover:border-fuchsia-500/50 dark:hover:border-fuchsia-400/50 ${isVisible ? 'fade-in visible' : 'fade-in'}`} 
               style={{ transitionDelay: `${index * 150}ms`}}
             >
               <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 flex-grow">{action.title}</h3>

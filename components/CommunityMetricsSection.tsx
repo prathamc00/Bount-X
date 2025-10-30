@@ -36,7 +36,7 @@ const MetricCard: React.FC<{ metric: CommunityMetric; index: number }> = memo(({
   return (
     <div
       ref={ref}
-      className={`bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center transition-all duration-300 shadow-md ${isVisible ? 'fade-in visible' : 'fade-in'}`}
+      className={`bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl p-6 text-center transition-all duration-300 shadow-md hover:-translate-y-2 hover:shadow-xl hover:border-fuchsia-500/50 dark:hover:border-fuchsia-400/50 ${isVisible ? 'fade-in visible' : 'fade-in'}`}
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">{metric.label}</p>

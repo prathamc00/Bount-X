@@ -73,7 +73,7 @@ const HackathonsSection: React.FC = () => {
              <>
                 {/* Upcoming Hackathon */}
                 {upcoming ? (
-                    <div id={upcoming.id} className={`lg:col-span-2 bg-white dark:bg-slate-900/50 border border-fuchsia-500/30 dark:border-fuchsia-500/50 rounded-xl p-6 flex flex-col shadow-lg dark:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(217,70,239,0.2)] transition-shadow ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '200ms' }}>
+                    <div id={upcoming.id} className={`lg:col-span-2 bg-white dark:bg-slate-900/50 border border-fuchsia-500/30 dark:border-fuchsia-500/50 rounded-xl p-6 flex flex-col shadow-lg dark:shadow-2xl dark:hover:shadow-[0_0_25px_rgba(217,70,239,0.2)] transition-all hover:scale-[1.02] ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '200ms' }}>
                     <h3 className="text-2xl font-bold text-fuchsia-600 dark:text-fuchsia-400 mb-2">{upcoming.title}</h3>
                     <p className="text-sm font-semibold text-fuchsia-700 dark:text-white bg-fuchsia-500/20 px-3 py-1 rounded-full self-start mb-4">{upcoming.theme}</p>
                     <div className="text-slate-600 dark:text-slate-300 space-y-3 mb-6 flex-grow">
@@ -101,7 +101,7 @@ const HackathonsSection: React.FC = () => {
                     <div className={`lg:col-span-3 space-y-4 ${isVisible ? 'fade-in visible' : 'fade-in'}`} style={{ transitionDelay: '400ms' }}>
                     <h3 className="text-2xl font-bold font-mono text-slate-900 dark:text-white mb-2">Past Winners // Archive_</h3>
                     {pastProjects.slice(0, 3).map((project) => (
-                        <div key={project.id} id={project.id} className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4 group transition-colors duration-300 shadow-md">
+                        <div key={project.id} id={project.id} className="bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-lg p-4 group transition-all duration-300 shadow-md hover:-translate-y-1 hover:shadow-xl dark:hover:bg-slate-800/50">
                         <div className="flex justify-between items-start">
                             <div>
                             <h4 className="font-bold text-slate-800 dark:text-white text-lg">{project.name}</h4>

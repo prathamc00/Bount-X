@@ -26,7 +26,7 @@ const BuildProjectCard: React.FC<BuildProjectCardProps> = memo(({ project, isAct
             alt={project.name} 
             width="1024"
             height="768"
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`} 
+            className={`absolute inset-0 w-full h-full object-cover transition-all duration-500 ease-in-out group-hover:scale-105 ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`} 
             loading="lazy" 
             decoding="async"
             onLoad={() => setIsImageLoaded(true)}

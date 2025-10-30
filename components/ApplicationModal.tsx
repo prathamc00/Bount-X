@@ -16,7 +16,6 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
   });
   const [errors, setErrors] = useState<Partial<Record<keyof ApplicationFormData, string>>>({});
   const [currentStep, setCurrentStep] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
   const validateField = useCallback((name: keyof ApplicationFormData, value: string) => {
@@ -92,10 +91,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateStep()) {
-      setIsSubmitted(true);
-      setTimeout(() => {
-        onSubmitSuccess(formData);
-      }, 2500); // Wait for confetti animation
+      onSubmitSuccess(formData);
     }
   };
 
@@ -103,7 +99,6 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
     setFormData({ name: '', email: '', phone: '', skill: '', experience: '', portfolioUrl: '', reason: '' });
     setErrors({});
     setCurrentStep(0);
-    setIsSubmitted(false);
   }, []);
   
   const handleClose = useCallback(() => {
@@ -112,10 +107,10 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
   }, [onClose, resetState]);
   
   useEffect(() => {
-      if (!isOpen && (currentStep !== 0 || isSubmitted)) {
+      if (!isOpen && currentStep !== 0) {
          setTimeout(resetState, 300);
       }
-  }, [isOpen, currentStep, isSubmitted, resetState]);
+  }, [isOpen, currentStep, resetState]);
 
   useEffect(() => {
     if (isOpen) {
@@ -178,16 +173,7 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
           <XIcon className="h-6 w-6" />
         </button>
 
-        {isSubmitted ? (
-          <div className="flex flex-col items-center justify-center text-center p-8 sm:p-12 h-full relative overflow-hidden">
-              {[...Array(30)].map((_, i) => (
-                  <div key={i} aria-hidden="true" className="absolute top-0 h-2 bg-fuchsia-500 animate-confetti-rain" style={{ left: `${Math.random() * 100}%`, animationDelay: `${Math.random() * 2}s`, width: `${Math.random() * 6 + 4}px` }}/>
-              ))}
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Application Received!</h2>
-            <p className="text-slate-600 dark:text-slate-300 mb-6">Redirecting you to your application status page...</p>
-          </div>
-        ) : (
-          <>
+        <>
             <div className="p-6 border-b border-slate-200 dark:border-slate-800">
               <h2 id="modal-title" className="text-2xl font-bold font-mono text-slate-900 dark:text-white">Join Bount-X</h2>
               <p className="text-sm text-slate-500 dark:text-slate-400">Step {currentStep + 1} of {steps.length}: {steps[currentStep]}</p>
@@ -273,7 +259,6 @@ const ApplicationModal: React.FC<ApplicationModalProps> = ({ isOpen, onClose, on
               )}
             </div>
           </>
-        )}
       </div>
     </div>
   );
