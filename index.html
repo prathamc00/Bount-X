@@ -74,14 +74,11 @@
               'move-stars-medium': 'move-stars 150s linear infinite',
               'move-stars-fast': 'move-stars 100s linear infinite',
               'subtle-glitch': 'subtle-glitch 6s infinite',
-              'wave-1': 'wave 25s ease-in-out infinite',
-              'wave-2': 'wave 30s ease-in-out infinite',
-              'wave-3': 'wave 35s ease-in-out infinite',
+              'progress-ring': 'progress-ring 1s ease-out forwards',
             },
             keyframes: {
-              'wave': {
-                '0%, 100%': { transform: 'translateX(0)' },
-                '50%': { transform: 'translateX(-25%)' },
+              'progress-ring': {
+                '0%': { 'stroke-dashoffset': '158' },
               },
               'text-glitch': {
                 '0%': { transform: 'translate(0)' },
@@ -151,17 +148,6 @@
       }
     </script>
     <style>
-      .hero-bg::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        background-image: radial-gradient(circle at center, rgba(148, 163, 184, 0.2) 1px, transparent 1px);
-        background-size: 40px 40px;
-        z-index: 0;
-      }
-      .dark .hero-bg::before {
-        background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-      }
       .stars-sm {
         background-image: radial-gradient(circle at center, #0f172a 1px, transparent 1px); /* slate-900 */
         background-size: 50px 50px;

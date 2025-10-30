@@ -8,7 +8,7 @@ const HackathonsSection: React.FC = () => {
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 
   return (
-    <section id="hackathons" className="py-20 sm:py-28 bg-slate-100 dark:bg-transparent scroll-mt-20">
+    <section id="hackathons" className="py-20 sm:py-28 scroll-mt-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className={`text-center mb-12 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
           <h2 className="text-4xl md:text-5xl font-bold font-mono text-slate-900 dark:text-white tracking-tight">

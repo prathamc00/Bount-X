@@ -44,7 +44,7 @@ const BuildToHackSection: React.FC<BuildToHackSectionProps> = ({ onApplyClick })
         
         {buildProjects.length > 0 ? (
           <div 
-            className={`relative h-[600px] w-full max-w-5xl mx-auto rounded-xl overflow-hidden bg-white/50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 shadow-lg dark:shadow-2xl transition-shadow dark:hover:shadow-[0_0_25px_rgba(217,70,239,0.1)] ${isVisible ? 'fade-in visible' : 'fade-in'}`} 
+            className={`relative h-[600px] w-full max-w-5xl mx-auto rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-lg dark:shadow-2xl transition-shadow dark:hover:shadow-[0_0_25px_rgba(217,70,239,0.1)] ${isVisible ? 'fade-in visible' : 'fade-in'}`} 
             style={{ transitionDelay: '200ms' }}
             aria-roledescription="carousel"
             >

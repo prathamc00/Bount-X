@@ -35,12 +35,13 @@ const AdminDashboard: React.FC = () => {
   };
 
   return (
-    <div className={`flex h-screen bg-slate-100 dark:bg-slate-950 font-sans ${theme}`}>
+    <div className={`flex h-screen bg-slate-950 font-sans text-slate-300 relative overflow-hidden ${theme}`}>
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[150%] h-[150%] bg-radial-gradient(ellipse_at_center,rgba(30,58,138,0.3)_0%,rgba(8,13,36,0)_60%) z-0 pointer-events-none"></div>
       <Sidebar currentView={view} setView={setView} />
-      <main className="flex-1 flex flex-col overflow-hidden">
-        <div className="flex-1 overflow-x-hidden overflow-y-auto bg-slate-100 dark:bg-slate-950">
+      <main className="flex-1 flex flex-col overflow-hidden z-10">
+        <div className="flex-1 overflow-x-hidden overflow-y-auto">
           <div className="container mx-auto px-6 py-8">
-            <Suspense fallback={<div className="text-center p-10">Loading...</div>}>
+            <Suspense fallback={<div className="text-center p-10">Loading Dashboard...</div>}>
               {renderView()}
             </Suspense>
           </div>

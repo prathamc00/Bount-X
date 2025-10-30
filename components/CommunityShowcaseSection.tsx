@@ -14,10 +14,6 @@ const CommunityShowcaseSection: React.FC = () => {
 
     return (
         <section ref={ref} className="relative py-20 sm:py-28 overflow-hidden">
-            <div className="absolute inset-0 z-0 flex items-center justify-center">
-                <div className="absolute w-[1000px] h-[1000px] bg-[radial-gradient(circle_at_center,_rgba(217,70,239,0.1),_rgba(217,70,239,0)_60%)] dark:bg-[radial-gradient(circle_at_center,_rgba(217,70,239,0.15),_rgba(217,70,239,0)_60%)]"></div>
-            </div>
-
             <div className={`container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 transition-all duration-700 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
                 <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center justify-center text-center min-h-[300px]">
                     

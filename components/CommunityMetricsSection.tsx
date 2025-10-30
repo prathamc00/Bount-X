@@ -52,7 +52,7 @@ const CommunityMetricsSection: React.FC = () => {
     const [ref, isVisible] = useIntersectionObserver<HTMLDivElement>({ threshold: 0.1 });
 
     return (
-    <section id="metrics" className="py-20 sm:py-28 bg-slate-100 dark:bg-transparent">
+    <section id="metrics" className="py-20 sm:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className={`text-center mb-12 ${isVisible ? 'fade-in visible' : 'fade-in'}`}>
           <h2 className="text-4xl md:text-5xl font-bold font-mono text-slate-900 dark:text-white tracking-tight">Community Velocity</h2>

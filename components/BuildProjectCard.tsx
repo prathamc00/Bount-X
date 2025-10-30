@@ -33,7 +33,7 @@ const BuildProjectCard: React.FC<BuildProjectCardProps> = memo(({ project, isAct
           />
         </>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-white via-white/70 to-transparent dark:from-slate-950 dark:via-slate-950/70 dark:to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-slate-50/70 to-transparent dark:from-slate-950 dark:via-slate-950/70 dark:to-transparent"></div>
       <div className="absolute bottom-0 left-0 p-8 text-slate-900 dark:text-white">
         <span className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mb-2 ${
           project.status === ProjectStatus.LAUNCHED ? 'bg-green-500/20 text-green-700 dark:text-green-300' : 
