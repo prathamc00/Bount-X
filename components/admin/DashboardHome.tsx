@@ -26,11 +26,7 @@ const DashboardHome: React.FC<DashboardHomeProps> = ({ setView }) => {
         { name: 'Rejected', value: 20, color: '#d946ef' }, // fuchsia-500
     ];
 
-    const tasks = [
-        { id: 1, user: 'Mark Smith', task: 'Review new developer applications', priority: 'High', date: '12 Aug 2024, 8:15 am' },
-        { id: 2, user: 'Jane Doe', task: 'Finalize hackathon prize list', priority: 'Medium', date: '11 Aug 2024, 10:30 am' },
-        { id: 3, user: 'Peter Jones', task: 'Schedule next community meetup', priority: 'Low', date: '10 Aug 2024, 2:00 pm' },
-    ];
+    const tasks: { id: number, user: string, task: string, priority: string, date: string }[] = [];
 
   return (
     <div className="animate-fade-in-up space-y-8">
@@ -38,7 +34,6 @@ const DashboardHome: React.FC<DashboardHomeProps> = ({ setView }) => {
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
                 <h1 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-500 to-blue-500 bg-clip-text text-transparent">Hello, Admin</h1>
-                <p className="text-slate-500 dark:text-slate-400">How can I help you today?</p>
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
                 <div className="relative flex-grow">
@@ -97,24 +92,30 @@ const DashboardHome: React.FC<DashboardHomeProps> = ({ setView }) => {
                     <h3 className="font-semibold text-slate-900 dark:text-white">Tasks</h3>
                 </div>
                 <div className="space-y-3">
-                    {tasks.map(task => (
-                        <div key={task.id} className="bg-slate-200/40 dark:bg-slate-800/40 p-3 rounded-lg">
-                            <div className="flex justify-between items-start">
-                                <p className="text-sm text-slate-800 dark:text-white font-medium">{task.task}</p>
-                                 <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
-                                    task.priority === 'High' ? 'bg-red-500/20 text-red-500 dark:text-red-300' :
-                                    task.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-500 dark:text-yellow-300' :
-                                    'bg-green-500/20 text-green-500 dark:text-green-300'
-                                }`}>
-                                    {task.priority}
-                                </span>
+                    {tasks.length > 0 ? (
+                        tasks.map(task => (
+                            <div key={task.id} className="bg-slate-200/40 dark:bg-slate-800/40 p-3 rounded-lg">
+                                <div className="flex justify-between items-start">
+                                    <p className="text-sm text-slate-800 dark:text-white font-medium">{task.task}</p>
+                                     <span className={`px-2 py-0.5 text-xs font-semibold rounded-full ${
+                                        task.priority === 'High' ? 'bg-red-500/20 text-red-500 dark:text-red-300' :
+                                        task.priority === 'Medium' ? 'bg-yellow-500/20 text-yellow-500 dark:text-yellow-300' :
+                                        'bg-green-500/20 text-green-500 dark:text-green-300'
+                                    }`}>
+                                        {task.priority}
+                                    </span>
+                                </div>
+                                 <div className="flex items-center justify-between mt-2 text-xs text-slate-500 dark:text-slate-400">
+                                    <span>{task.user}</span>
+                                    <span>{task.date}</span>
+                                </div>
                             </div>
-                             <div className="flex items-center justify-between mt-2 text-xs text-slate-500 dark:text-slate-400">
-                                <span>{task.user}</span>
-                                <span>{task.date}</span>
-                            </div>
+                        ))
+                    ) : (
+                        <div className="text-center py-8">
+                          <p className="text-slate-500 dark:text-slate-400 text-sm">No tasks assigned.</p>
                         </div>
-                    ))}
+                    )}
                 </div>
             </div>
         </div>

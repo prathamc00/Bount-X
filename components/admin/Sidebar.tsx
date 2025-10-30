@@ -32,11 +32,8 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
       </div>
 
       <div className="px-4 border-t border-slate-200 dark:border-slate-700/50 pt-4">
-        <div className="flex items-center p-2 rounded-lg bg-slate-200/50 dark:bg-slate-800/30">
-            <img src="https://i.pravatar.cc/40?u=admin" alt="Admin" className="w-10 h-10 rounded-full" />
-            <div className="ml-3">
-                <p className="text-sm font-semibold text-slate-900 dark:text-white">Administrator</p>
-            </div>
+        <div className="flex items-center justify-center px-2 py-4 rounded-lg bg-slate-200/50 dark:bg-slate-800/30">
+          <p className="text-sm font-semibold text-slate-900 dark:text-white">Administrator</p>
         </div>
       </div>
 
