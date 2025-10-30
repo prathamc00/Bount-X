@@ -33,7 +33,7 @@ const DashboardHome: React.FC<DashboardHomeProps> = ({ setView }) => {
         {/* Header */}
         <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-500 to-blue-500 bg-clip-text text-transparent">Hello, Admin</h1>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-fuchsia-500 to-blue-500 bg-clip-text text-transparent"> Admin Mode: ON</h1>
             </div>
             <div className="flex items-center gap-2 w-full md:w-auto">
                 <div className="relative flex-grow">
