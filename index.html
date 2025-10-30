@@ -75,10 +75,15 @@
               'move-stars-fast': 'move-stars 100s linear infinite',
               'subtle-glitch': 'subtle-glitch 6s infinite',
               'progress-ring': 'progress-ring 1s ease-out forwards',
+              'logo-spin': 'logo-spin 15s linear infinite',
             },
             keyframes: {
               'progress-ring': {
-                '0%': { 'stroke-dashoffset': '158' },
+                '0%': { 'stroke-dashoffset': '315' },
+              },
+               'logo-spin': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
               },
               'text-glitch': {
                 '0%': { transform: 'translate(0)' },

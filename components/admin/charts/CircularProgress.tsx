@@ -12,8 +12,14 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => {
   return (
     <div className="relative w-40 h-40">
       <svg className="w-full h-full" viewBox="0 0 120 120">
+        <defs>
+            <linearGradient id="progressGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#d946ef" />
+                <stop offset="100%" stopColor="#3b82f6" />
+            </linearGradient>
+        </defs>
         <circle
-          className="text-slate-700"
+          className="text-slate-200 dark:text-slate-700"
           strokeWidth="10"
           stroke="currentColor"
           fill="transparent"
@@ -22,12 +28,12 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => {
           cy="60"
         />
         <circle
-          className="text-blue-500 animate-progress-ring"
+          className="animate-progress-ring"
           strokeWidth="10"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          stroke="currentColor"
+          stroke="url(#progressGradient)"
           fill="transparent"
           r={radius}
           cx="60"
@@ -36,7 +42,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ percentage }) => {
         />
       </svg>
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <span className="text-3xl font-bold text-white">{percentage}%</span>
+        <span className="text-3xl font-bold text-slate-900 dark:text-white">{percentage}%</span>
       </div>
     </div>
   );

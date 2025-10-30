@@ -13,7 +13,7 @@ const DonutChart: React.FC<DonutChartProps> = ({ data }) => {
         <div className="relative w-32 h-32">
             <svg className="w-full h-full" viewBox="0 0 120 120">
                 <circle
-                    className="text-slate-700"
+                    className="text-slate-200 dark:text-slate-700"
                     strokeWidth="15"
                     stroke="currentColor"
                     fill="transparent"
