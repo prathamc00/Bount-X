@@ -33,7 +33,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onApplyClick }) => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-3xl text-left">
             <ZetpeakBackedLogo />
-            <h1 className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white tracking-tight animate-fade-in-up" style={{ animationDelay: '200ms' }}>
+            <h1 className="text-4xl md:text-6xl font-bold text-slate-900 dark:text-white tracking-tight animate-fade-in-up" style={{ animationDelay: '200ms' }}>
               <span className="inline-block animate-subtle-glitch">
                 The Real Home for Hackers:
                 <br />
