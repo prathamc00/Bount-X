@@ -1,0 +1,19 @@
+<phpunit>
+    <testsuites>
+        <testsuite name="Feature Tests">
+            <directory>./tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Unit Tests">
+            <directory>./tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+    <php>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="display_errors" value="1"/>
+    </php>
+    <coverage>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </coverage>
+</phpunit>

@@ -1,0 +1,39 @@
+{
+  "info": {
+    "name": "BountX Admin API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "item": [
+    {
+      "name": "Auth - Login",
+      "request": {
+        "method": "POST",
+        "header": [
+          {"key":"Content-Type","value":"application/json"}
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"admin@local\",\"password\":\"admin123\"}"
+        },
+        "url": {"raw":"{{baseUrl}}/api/admin/auth/login","host":["{{baseUrl}}"], "path":["api","admin","auth","login"]}
+      }
+    },
+    {
+      "name": "Stats - KPIs",
+      "request": {
+        "method": "GET",
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}],
+        "url": {"raw":"{{baseUrl}}/api/admin/stats/kpis","host":["{{baseUrl}}"], "path":["api","admin","stats","kpis"]}
+      }
+    },
+    {
+      "name": "Applications - List",
+      "request": {
+        "method": "GET",
+        "header": [{"key":"Authorization","value":"Bearer {{token}}"}],
+        "url":{"raw":"{{baseUrl}}/api/admin/applications","host":["{{baseUrl}}"], "path":["api","admin","applications"]}
+      }
+    }
+  ]
+}

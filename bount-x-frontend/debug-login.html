@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .result { margin: 10px 0; padding: 10px; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .info { background-color: #d1ecf1; color: #0c5460; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+    </style>
+</head>
+<body>
+    <h1>Debug Login Test</h1>
+    
+    <div>
+        <input type="email" id="email" value="admin@bountx.com" placeholder="Email">
+        <input type="password" id="password" value="admin123" placeholder="Password">
+        <button onclick="testLogin()">Test Login</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api';
+        const resultsDiv = document.getElementById('results');
+
+        function addResult(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `result ${type}`;
+            div.innerHTML = message;
+            resultsDiv.appendChild(div);
+        }
+
+        async function testLogin() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            addResult('Starting login test...', 'info');
+            
+            // Step 1: Test if backend is reachable
+            try {
+                addResult('Step 1: Testing backend connectivity...', 'info');
+                const healthResponse = await fetch(`${API_BASE}/health`);
+                if (healthResponse.ok) {
+                    addResult('✓ Backend is reachable', 'success');
+                } else {
+                    addResult(`✗ Backend health check failed: ${healthResponse.status}`, 'error');
+                    return;
+                }
+            } catch (error) {
+                addResult(`✗ Cannot reach backend: ${error.message}`, 'error');
+                return;
+            }
+
+            // Step 2: Test CORS preflight
+            try {
+                addResult('Step 2: Testing CORS preflight...', 'info');
+                const corsResponse = await fetch(`${API_BASE}/admin/auth/login`, {
+                    method: 'OPTIONS'
+                });
+                addResult(`✓ CORS preflight OK: ${corsResponse.status}`, 'success');
+            } catch (error) {
+                addResult(`✗ CORS preflight failed: ${error.message}`, 'error');
+            }
+
+            // Step 3: Test actual login
+            try {
+                addResult('Step 3: Testing login request...', 'info');
+                
+                const loginData = {
+                    email: email,
+                    password: password
+                };
+                
+                addResult(`Request data: ${JSON.stringify(loginData)}`, 'info');
+                
+                const response = await fetch(`${API_BASE}/admin/auth/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                
+                addResult(`Response status: ${response.status}`, 'info');
+                addResult(`Response headers: ${JSON.stringify([...response.headers.entries()])}`, 'info');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    addResult(`✓ Login successful!`, 'success');
+                    addResult(`Response: ${JSON.stringify(data, null, 2)}`, 'success');
+                    
+                    if (data.token) {
+                        addResult('✓ Token received successfully', 'success');
+                        
+                        // Test authenticated request
+                        try {
+                            addResult('Step 4: Testing authenticated request...', 'info');
+                            const kpiResponse = await fetch(`${API_BASE}/admin/stats/kpis`, {
+                                headers: {
+                                    'Authorization': `Bearer ${data.token}`,
+                                    'Content-Type': 'application/json'
+                                }
+                            });
+                            
+                            if (kpiResponse.ok) {
+                                const kpiData = await kpiResponse.json();
+                                addResult(`✓ Authenticated request successful: ${JSON.stringify(kpiData)}`, 'success');
+                            } else {
+                                addResult(`✗ Authenticated request failed: ${kpiResponse.status}`, 'error');
+                            }
+                        } catch (error) {
+                            addResult(`✗ Authenticated request error: ${error.message}`, 'error');
+                        }
+                    } else {
+                        addResult('✗ No token in response', 'error');
+                    }
+                } else {
+                    const errorText = await response.text();
+                    addResult(`✗ Login failed: ${response.status} - ${errorText}`, 'error');
+                }
+            } catch (error) {
+                addResult(`✗ Login request failed: ${error.message}`, 'error');
+                addResult(`Error details: ${error.stack}`, 'error');
+            }
+        }
+
+        // Auto-run test
+        window.addEventListener('load', () => {
+            addResult('Debug login test loaded. Click "Test Login" to start.', 'info');
+        });
+    </script>
+</body>
+</html>

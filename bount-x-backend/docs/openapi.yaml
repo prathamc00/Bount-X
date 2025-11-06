@@ -1,0 +1,358 @@
+openapi: 3.0.0
+info:
+  title: Bount-X Community Platform API
+  version: 1.0.0
+  description: API for managing community content and applications for the Bount-X Community Platform.
+servers:
+  - url: http://localhost:8000/api
+    description: Local development server
+
+paths:
+  # Public endpoints
+  /health:
+    get:
+      summary: Health check
+      tags: [Public]
+      responses:
+        '200':
+          description: Service health status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  timestamp:
+                    type: string
+                  database:
+                    type: string
+                  version:
+                    type: string
+
+  /applications:
+    post:
+      summary: Submit a new application
+      tags: [Public]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationSubmission'
+      responses:
+        '201':
+          description: Application submitted successfully
+        '400':
+          description: Invalid input
+
+  /meetups:
+    get:
+      summary: Get all meetups
+      tags: [Public]
+      responses:
+        '200':
+          description: List of meetups
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Meetup'
+
+  /hackathons/upcoming:
+    get:
+      summary: Get upcoming hackathon
+      tags: [Public]
+      responses:
+        '200':
+          description: Upcoming hackathon details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpcomingHackathon'
+
+  /hackathons/past-winners:
+    get:
+      summary: Get past hackathon winners
+      tags: [Public]
+      responses:
+        '200':
+          description: List of past winners
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/HackathonProject'
+
+  /build-projects:
+    get:
+      summary: Get all build projects
+      tags: [Public]
+      responses:
+        '200':
+          description: List of build projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BuildProject'
+
+  # Admin endpoints
+  /admin/auth/login:
+    post:
+      summary: Admin login
+      tags: [Admin Auth]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+              required: [email, password]
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  expires_in:
+                    type: integer
+        '401':
+          description: Invalid credentials
+
+  /admin/stats/kpis:
+    get:
+      summary: Get KPI statistics
+      tags: [Admin Stats]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: KPI data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KPIStats'
+
+  /admin/applications:
+    get:
+      summary: Get all applications (admin)
+      tags: [Admin Applications]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [Pending, Approved, Rejected]
+        - name: q
+          in: query
+          schema:
+            type: string
+      responses:
+        '200':
+          description: List of applications
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Application'
+
+  /admin/applications/{id}:
+    put:
+      summary: Update application status
+      tags: [Admin Applications]
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [Pending, Approved, Rejected]
+              required: [status]
+      responses:
+        '200':
+          description: Application updated successfully
+        '404':
+          description: Application not found
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    ApplicationSubmission:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+        skill:
+          type: string
+          enum: [Hacker, Designer, Developer]
+        experience:
+          type: string
+          enum: [Junior, Mid-Level, Senior]
+        portfolioUrl:
+          type: string
+          format: uri
+        reason:
+          type: string
+      required: [name, email, phone, skill, experience, portfolioUrl, reason]
+
+    Application:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        skill:
+          type: string
+          enum: [Hacker, Designer, Developer]
+        experience:
+          type: string
+          enum: [Junior, Mid-Level, Senior]
+        portfolioUrl:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+          enum: [Pending, Approved, Rejected]
+        submittedAt:
+          type: string
+          format: date-time
+
+    Meetup:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        topic:
+          type: string
+        rsvpUrl:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+
+    UpcomingHackathon:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        theme:
+          type: string
+        startDate:
+          type: string
+          format: date
+        endDate:
+          type: string
+          format: date
+        registrationUrl:
+          type: string
+        prizes:
+          type: array
+          items:
+            type: string
+
+    HackathonProject:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        team:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        githubUrl:
+          type: string
+        prize:
+          type: string
+        year:
+          type: integer
+
+    BuildProject:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        creator:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+          enum: [In Progress, Launched, Funded]
+        imageUrl:
+          type: string
+        techStack:
+          type: array
+          items:
+            type: string
+
+    KPIStats:
+      type: object
+      properties:
+        newMembers:
+          type: integer
+        applicationsPending:
+          type: integer
+        upcomingEvents:
+          type: integer
+        activeProjects:
+          type: integer
