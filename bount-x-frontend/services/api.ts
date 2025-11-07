@@ -1,5 +1,5 @@
 // API Service for BounT-X Frontend
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = 'http://localhost:8000/api';
 
 class ApiService {
   private baseUrl: string;
